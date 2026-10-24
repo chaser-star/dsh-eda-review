@@ -1,6 +1,6 @@
 {
   "name": "dsh-eda-review",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "嘉立创EDA专业版工程文件（.epro2/.epru）解析与电路/图形审查技能：权威网表重建、引脚核对、PCB几何检查",
   "type": "module",
   "main": "index.js",
