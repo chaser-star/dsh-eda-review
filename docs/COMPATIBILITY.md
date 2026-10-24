@@ -4,12 +4,12 @@
 
 ## 结论
 
-所需扩展点（`ctx.skills.registerProvider` + 相同 provider 字段）在 **0.0.1-rc.5（最早发布版本）到 0.2.1-rc.3（当前）** 的全部已发布版本中均存在，provider 字段处理在 0.1.0-rc.2 与 0.1.5-rc.3 中逐项一致。运行时实测覆盖 0.2.1-rc.3；其余版本为包级代码检查证据。
+所需扩展点（`ctx.skills.registerProvider` + 相同 provider 字段）在 **0.0.1-rc.5（最早发布版本）到 0.2.1-rc.3（当前）** 的全部已发布版本中均存在，provider 字段处理在 0.1.0-rc.2 与 0.1.5-rc.3 中逐项一致。运行时实测覆盖 0.2.1-rc.3 与 0.1.5-rc.3；其余版本为包级代码检查证据。
 
 | DSH 版本 | 安装 | 配置组装 | 模块加载 / 技能注册 | 证据类型 |
 | :--- | :--- | :--- | :--- | :--- |
 | `0.2.1-rc.3` | ✅ link 安装到一次性 Profile | ✅ `--dump-config` 出现 `dsh-eda-review` 条目 | ✅ `list()` 返回 `eda-project-review`、`get()` 返回技能内容（v1.1.0 复测 25,875 字节，含 §15）；**`yaml` 缺失仍正常** | 真实安装实测（v1.0.0 与 v1.1.0 复测；公开报告：[讨论 #10916](https://github.com/deepseek-ai/deepseek-harness/discussions/10916)） |
-| `0.1.5-rc.3` | — | ✅ 旧 CLI 支持 `dsh.bundle.patch` | ✅ `dsh-skill` 暴露 `registerProvider(create)`；`rank/source/resourceBase/invocation/locator/metadata` 均有处理 | 包级代码检查 |
+| `0.1.5-rc.3` | ✅ link 安装到一次性 Profile（旧 CLI 自带 pnpm v12） | ✅ `--dump-config` 出现 `dsh-eda-review` 条目 | ✅ Node 24 下模块加载：`list()` → `eda-project-review`，`get()` 返回 25,875 字节（v1.1.0）；**`yaml` 缺失仍正常** | 运行时实测（2026-10-25，一次性 `DSH_HOME`） |
 | `0.1.2-rc.1` | — | — | ✅ `registerProvider` 存在 | 包级代码检查 |
 | `0.1.0-rc.2` | — | — | ✅ `registerProvider` 存在；六项 provider 字段处理计数与 0.1.5-rc.3 完全一致 | 包级代码检查 |
 | `0.0.1-rc.5`（最早发布） | — | — | ✅ `registerProvider` 存在 | 包级代码检查 |
@@ -55,5 +55,6 @@ node D:\DSH\compat-smoke.mjs
 ## 版本策略
 
 - 不锁定 DSH 版本：插件只依赖上述稳定契约，新增字段均为向后兼容的附加字段；
+- **旧版 CLI 的 Node 要求**：0.1.5-rc.3 的 CLI 使用 `import.meta.main` 自执行，需要 Node 24+ 运行（插件模块本身只需要 Node ≥20）；
 - 若未来 DSH 调整 `skills` 服务签名：优先在 `apply` 内做特性检测与适配，保持旧版本可用，其次才提升最低版本；
 - 兼容性结论随实测更新本文件，不以「曾经能跑」推断当前版本。
