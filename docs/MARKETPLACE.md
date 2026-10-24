@@ -19,7 +19,10 @@
 | 状态 | 取值 | 说明 |
 | :--- | :--- | :--- |
 | 本地审计 | 静态 80/80（isolated-acceptance-ready），0 blockers | `audit-plugin.mjs` 2026-10-25 |
-| 单元测试 | 20 通过 / 0 失败（frontmatter 11 + safety 9） | `node test/frontmatter.test.mjs`、`node test/safety.test.mjs` |
+| 测试轮次 | 3 轮：功能 59 → 差分 300 → 回归 77×3 | 见 [TESTING.md](TESTING.md) |
+| 单元/集成测试 | 77 项：76 通过 / 0 失败 / 1 跳过（yaml 差分） | `node test/run-all.mjs` |
+| 差分精度 | 300 例 / 0 失配 / 误差 0.00%（门限 <5%） | `node test/differential.test.mjs` |
+| 覆盖率 | 行 95.98% / 分支 89.56% / 函数 98.54% | `node --experimental-test-coverage test/run-all.mjs` |
 | 运行时验收（E3） | 未验证 | 需一次性 Profile 安装 + dump-config + 启动冒烟 |
 | 市场收录 | **Declared**（作者声明） | 未被 dsh.so 独立验证为 Verified |
 | 版本兼容矩阵 | `unknown` | 未在具体 DSH 版本上实测 |

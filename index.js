@@ -24,7 +24,7 @@ export function apply(ctx) {
     name: PROVIDER_NAME,
     async list(options) {
       options?.signal?.throwIfAborted()
-      const skills = await loadSkills(options?.signal)
+      const skills = await loadSkillsFrom(SKILLS_ROOT, options?.signal)
       options?.signal?.throwIfAborted()
       return skills.map(toCandidate)
     },
@@ -33,24 +33,36 @@ export function apply(ctx) {
       if (candidate === null || typeof candidate !== 'object' || typeof candidate.name !== 'string') {
         return undefined
       }
-      const skills = await loadSkills(options?.signal)
+      const skills = await loadSkillsFrom(SKILLS_ROOT, options?.signal)
       const skill = skills.find((entry) => entry.name === candidate.name)
       return skill === undefined ? undefined : toDefinition(skill)
     },
   }))
 }
 
-async function loadSkills(signal) {
-  const entries = await readdir(SKILLS_ROOT, { withFileTypes: true })
+/**
+ * Load skill definitions from a directory root. Exported for tests.
+ */
+export async function loadSkillsFrom(root, signal) {
+  const entries = await readdir(root, { withFileTypes: true })
   const skills = []
 
   for (const entry of entries) {
     if (!entry.isDirectory() && !entry.isSymbolicLink()) continue
     signal?.throwIfAborted()
 
-    const directory = join(SKILLS_ROOT, entry.name)
+    const directory = join(root, entry.name)
     const skillFile = join(directory, 'SKILL.md')
-    const raw = await readFile(skillFile, 'utf8')
+
+    let raw
+    try {
+      raw = await readFile(skillFile, 'utf8')
+    } catch (error) {
+      // A directory without SKILL.md is not a skill: skip it instead of
+      // failing the whole provider listing.
+      if (error !== null && typeof error === 'object' && error.code === 'ENOENT') continue
+      throw error
+    }
 
     if (Buffer.byteLength(raw, 'utf8') > MAX_SKILL_FILE_BYTES) {
       throw new Error(`${PROVIDER_NAME}: ${skillFile} exceeds ${MAX_SKILL_FILE_BYTES} bytes`)

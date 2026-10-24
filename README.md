@@ -79,9 +79,11 @@ dsh-eda-review-plugin/
 ## 开发与测试
 
 ```powershell
-node --check index.js
-node --test test/
+npm test                                              # 单进程全量 77 项
+node --experimental-test-coverage test/run-all.mjs    # 覆盖率
 ```
+
+测试体系（三轮，见 [docs/TESTING.md](docs/TESTING.md)）：契约 11 + 安全 9 + 黄金用例 39 + 差分精度 300 例（误差 **0.00%** < 5%）+ 健壮性 15；行覆盖率 95.98%、分支 89.56%。
 
 ## 许可证
 
