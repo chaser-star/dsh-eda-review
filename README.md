@@ -1,7 +1,7 @@
 # dsh-eda-review
 
 嘉立创EDA专业版（EasyEDA Pro）工程文件（`.epro2` / `.epru`）解析与电路/图形审查技能，打包为标准 DSH（DeepSeek Harness）Skill Bundle。
-（不可解析加密文件，违者后果自负）
+
 **只读技能包**：不联网、不写文件、不执行外部命令、无任何安装脚本。
 
 ## 能力
