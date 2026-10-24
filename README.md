@@ -105,6 +105,8 @@ node --experimental-test-coverage test/run-all.mjs    # 覆盖率
 
 Apache-2.0，见 [LICENSE](LICENSE)。
 
+SPDX 标识：`Apache-2.0`（SPDX-License-Identifier: Apache-2.0）。仓库内全部源文件均带 SPDX 头标记，兼容 REUSE 规范与 SPDX 识别工具。
+
 ## 市场状态
 
 - dsh-market / dsh.so：**Declared**（作者声明），尚未 Verified；

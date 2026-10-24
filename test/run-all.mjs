@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: Apache-2.0
 // Single-process test entry: runs every suite without spawning child
 // processes, so the same command works in constrained sandboxes and CI.
 import './frontmatter.test.mjs'

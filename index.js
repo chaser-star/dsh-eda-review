@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: Apache-2.0
 /**
  * dsh-eda-review — read-only DSH Skill bundle.
  *
