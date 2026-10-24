@@ -62,6 +62,16 @@ dsh plugin --profile desktop remove dsh-eda-review
 
 依赖 `yaml` 仅用于 frontmatter 解析；当它不可解析时自动降级为内置纯文本解析器，插件不会因缺依赖崩溃。详见 [SECURITY.md](SECURITY.md)。
 
+## 使用范围与免责声明
+
+本技能面向**自有或已获授权**的工程项目文件提供辅助审查，不提供任何形式的保证。
+
+- **禁止处理加密或受保护文件**：不解析、不解密、不绕过任何加密文件、受加密保护或访问受限的工程文件；
+- **禁止处理他人保密文件**：请勿将第三方保密资料、公司内部工作文件或未获授权的工程数据提交给本技能处理；
+- 输出仅为基于工程数据的分析建议，**不构成设计正确性、可制造性或安全性的保证或验收结论**；
+- 使用者应自行确认对相关文件的合法使用权并遵守所在地法律法规；因超出上述范围、侵犯第三方权利或违反法律法规产生的一切后果由使用者自行承担，作者不承担任何责任；
+- 本软件依据 Apache-2.0 许可证「按现状」提供，不附带任何明示或默示担保。
+
 ## 目录结构
 
 ```
@@ -71,9 +81,9 @@ dsh-eda-review-plugin/
 ├─ lib/frontmatter.mjs   # frontmatter 解析（yaml 优先，内置兜底）
 ├─ cordis.patch.yml      # bundle 补丁：insert 唯一 entry
 ├─ skills/eda-project-review/SKILL.md
-├─ test/frontmatter.test.mjs
-├─ docs/candidate-entry.json
-├─ README.md  LICENSE  SECURITY.md
+├─ test/                 # run-all + 5 套测试（共 77 项）
+├─ docs/                 # TESTING / MARKETPLACE / candidate-entry
+├─ README.md  SECURITY.md  LICENSE
 ```
 
 ## 开发与测试
@@ -84,6 +94,12 @@ node --experimental-test-coverage test/run-all.mjs    # 覆盖率
 ```
 
 测试体系（三轮，见 [docs/TESTING.md](docs/TESTING.md)）：契约 11 + 安全 9 + 黄金用例 39 + 差分精度 300 例（误差 **0.00%** < 5%）+ 健壮性 15；行覆盖率 95.98%、分支 89.56%。
+
+## 参考
+
+- 官方格式说明（嘉立创 EDA 专业版 V3 工程文件格式）：<https://github.com/easyeda/easyeda-file-format>
+- 更新版格式文档（官方）：<https://github.com/easyeda/easyeda-format-skill>
+- 社区格式整理：<https://github.com/eggfly/easyeda-agent-skills/blob/main/spec/epro2-format.md>
 
 ## 许可证
 
