@@ -8,13 +8,15 @@
 
 | DSH 版本 | 安装 | 配置组装 | 模块加载 / 技能注册 | 证据类型 |
 | :--- | :--- | :--- | :--- | :--- |
-| `0.2.1-rc.3` | ✅ link 安装到一次性 Profile | ✅ `--dump-config` 出现 `dsh-eda-review` 条目 | ✅ `list()` 返回 `eda-project-review`、`get()` 返回 23,891 字节技能内容；**`yaml` 缺失仍正常** | 真实安装实测（公开报告：[讨论 #10916](https://github.com/deepseek-ai/deepseek-harness/discussions/10916)） |
+| `0.2.1-rc.3` | ✅ link 安装到一次性 Profile | ✅ `--dump-config` 出现 `dsh-eda-review` 条目 | ✅ `list()` 返回 `eda-project-review`、`get()` 返回技能内容（v1.1.0 复测 25,875 字节，含 §15）；**`yaml` 缺失仍正常** | 真实安装实测（v1.0.0 与 v1.1.0 复测；公开报告：[讨论 #10916](https://github.com/deepseek-ai/deepseek-harness/discussions/10916)） |
 | `0.1.5-rc.3` | — | ✅ 旧 CLI 支持 `dsh.bundle.patch` | ✅ `dsh-skill` 暴露 `registerProvider(create)`；`rank/source/resourceBase/invocation/locator/metadata` 均有处理 | 包级代码检查 |
 | `0.1.2-rc.1` | — | — | ✅ `registerProvider` 存在 | 包级代码检查 |
 | `0.1.0-rc.2` | — | — | ✅ `registerProvider` 存在；六项 provider 字段处理计数与 0.1.5-rc.3 完全一致 | 包级代码检查 |
 | `0.0.1-rc.5`（最早发布） | — | — | ✅ `registerProvider` 存在 | 包级代码检查 |
 
 真实安装实测命令与输出见 `docs/TESTING.md` 与本节末尾的复现步骤。
+
+每次发版（含技能内容变更）需对当前运行时重跑一次安装 + 冒烟，避免把旧版本的证据当作新版本的证据；v1.1.0 已完成复测。
 
 ## 插件使用的宿主契约
 
