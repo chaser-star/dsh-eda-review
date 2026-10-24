@@ -1,0 +1,58 @@
+{
+  "name": "dsh-eda-review",
+  "version": "1.0.0",
+  "description": "嘉立创EDA专业版工程文件（.epro2/.epru）解析与电路/图形审查技能：权威网表重建、引脚核对、PCB几何检查",
+  "type": "module",
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "index.js",
+    "lib",
+    "cordis.patch.yml",
+    "skills",
+    "README.md",
+    "LICENSE",
+    "SECURITY.md"
+  ],
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "cordis",
+    "skill",
+    "eda",
+    "epro2",
+    "epru",
+    "lceda",
+    "easyeda-pro",
+    "pcb-review"
+  ],
+  "license": "Apache-2.0",
+  "author": "chaser-star",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chaser-star/dsh-eda-review.git"
+  },
+  "homepage": "https://github.com/chaser-star/dsh-eda-review#readme",
+  "bugs": {
+    "url": "https://github.com/chaser-star/dsh-eda-review/issues"
+  },
+  "dependencies": {
+    "yaml": "^2.4.2"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "test": "node --test test/"
+  }
+}

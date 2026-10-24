@@ -1,0 +1,15 @@
+{
+  "id": "dsh-eda-review",
+  "name": "dsh-eda-review",
+  "description": "嘉立创EDA专业版（.epro2/.epru）工程解析与电路/图形审查技能：权威网表重建、引脚核对、PCB几何检查。",
+  "repositoryUrl": "https://github.com/chaser-star/dsh-eda-review",
+  "defaultBranch": "main",
+  "latestCommit": null,
+  "sourceUpdatedAt": null,
+  "discoveredAt": "2026-10-25T04:35:00+08:00",
+  "discoverySources": ["github-topic"],
+  "topics": ["dsh-plugin", "dsh-skill", "eda", "lceda", "easyeda-pro"],
+  "status": "discovered",
+  "route": "direct-review",
+  "statusReason": null
+}

@@ -1,0 +1,5 @@
+# dsh-eda-review bundle: registers the packaged skills/eda-project-review
+# SKILL.md on ctx.skills. The entry id is globally unique for this package.
+- insert:
+    - id: dsh-eda-review
+      name: dsh-eda-review
