@@ -33,7 +33,7 @@
 | :--- | :--- | :--- |
 | discovery（发现） | ✅ 本地 candidate 记录 | `docs/candidate-entry.json` |
 | installability（可安装） | ✅ 已证明：一次性 Profile `dsh plugin add link:` 成功，`--dump-config` 组装出条目 | 已完成 |
-| runtime（运行时） | ◐ 模块级加载通过（技能注册与读取）；完整会话与 UI 未验证 | `dsh headless` 或真实 Profile 冒烟 |
+| runtime（运行时） | ✅ 已实测：一次性 Profile 模块级加载 + 技能注册通过；公开兼容性报告 [讨论 #10916](https://github.com/deepseek-ai/deepseek-harness/discussions/10916) | `dsh headless` 或真实 Profile 的完整会话 |
 | securityReview（安全复核） | ⏳ unknown | 提交后平台扫描报告（automated-scan） |
 
 ## 上架步骤
