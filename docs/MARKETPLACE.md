@@ -18,7 +18,7 @@
 
 | 状态 | 取值 | 说明 |
 | :--- | :--- | :--- |
-| 本地审计 | 静态 77/80（isolated-acceptance-ready），0 blockers | `audit-plugin.mjs` 2026-10-25 |
+| 本地审计 | 静态 80/80（isolated-acceptance-ready），0 blockers | `audit-plugin.mjs` 2026-10-25 |
 | 单元测试 | 20 通过 / 0 失败（frontmatter 11 + safety 9） | `node test/frontmatter.test.mjs`、`node test/safety.test.mjs` |
 | 运行时验收（E3） | 未验证 | 需一次性 Profile 安装 + dump-config + 启动冒烟 |
 | 市场收录 | **Declared**（作者声明） | 未被 dsh.so 独立验证为 Verified |
