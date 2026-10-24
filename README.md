@@ -89,11 +89,18 @@ dsh-eda-review-plugin/
 ## 开发与测试
 
 ```powershell
-npm test                                              # 单进程全量 77 项
+npm test                                              # 单进程全量 79 项
 node --experimental-test-coverage test/run-all.mjs    # 覆盖率
 ```
 
-测试体系（三轮，见 [docs/TESTING.md](docs/TESTING.md)）：契约 11 + 安全 9 + 黄金用例 39 + 差分精度 300 例（误差 **0.00%** < 5%）+ 健壮性 15；行覆盖率 95.98%、分支 89.56%。
+测试体系（三轮，见 [docs/TESTING.md](docs/TESTING.md)）：契约 11 + 安全 9 + 黄金用例 39 + 差分精度 300 例（误差 **0.00%** < 5%）+ 健壮性 17；行覆盖率 96.11%、分支 89.91%。
+
+## 兼容性
+
+- 已实测：`0.2.1-rc.3`（一次性 Profile 中 link 安装 → `--dump-config` 组装出条目 → 技能注册成功，且 `yaml` 缺失仍正常）；
+- 契约验证：`0.1.5-rc.3` 的 `dsh-skill` 暴露同名 `registerProvider` 扩展点与相同 provider 字段；
+- 降级策略：宿主无 `skills` 服务时不加载；无 `registerProvider` 时保持惰性并通过 `ctx.logger.warn` 说明；
+- 详见 [docs/COMPATIBILITY.md](docs/COMPATIBILITY.md)。
 
 ## 参考
 

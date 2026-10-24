@@ -19,21 +19,21 @@
 | 状态 | 取值 | 说明 |
 | :--- | :--- | :--- |
 | 本地审计 | 静态 80/80（isolated-acceptance-ready），0 blockers | `audit-plugin.mjs` 2026-10-25 |
-| 测试轮次 | 3 轮：功能 59 → 差分 300 → 回归 77×3 | 见 [TESTING.md](TESTING.md) |
-| 单元/集成测试 | 77 项：76 通过 / 0 失败 / 1 跳过（yaml 差分） | `node test/run-all.mjs` |
+| 测试轮次 | 3 轮：功能 59 → 差分 300 → 回归 79×3 | 见 [TESTING.md](TESTING.md) |
+| 单元/集成测试 | 79 项：78 通过 / 0 失败 / 1 跳过（yaml 差分） | `node test/run-all.mjs` |
 | 差分精度 | 300 例 / 0 失配 / 误差 0.00%（门限 <5%） | `node test/differential.test.mjs` |
-| 覆盖率 | 行 95.98% / 分支 89.56% / 函数 98.54% | `node --experimental-test-coverage test/run-all.mjs` |
-| 运行时验收（E3） | 未验证 | 需一次性 Profile 安装 + dump-config + 启动冒烟 |
+| 覆盖率 | 行 96.11% / 分支 89.91% / 函数 98.58% | `node --experimental-test-coverage test/run-all.mjs` |
+| 运行时验收（E3） | 部分通过：一次性 Profile link 安装 + `--dump-config` + 模块加载/技能注册冒烟（yaml 缺失仍通过）；完整启动未验证 | 见 [COMPATIBILITY.md](COMPATIBILITY.md) |
 | 市场收录 | **Declared**（作者声明） | 未被 dsh.so 独立验证为 Verified |
-| 版本兼容矩阵 | `unknown` | 未在具体 DSH 版本上实测 |
+| 版本兼容矩阵 | `0.2.1-rc.3` 运行时实测通过；`0.0.1-rc.5`→`0.1.5-rc.3` 扩展点与字段契约一致 | 见 [COMPATIBILITY.md](COMPATIBILITY.md) |
 
 ## 四个独立 assurance 层
 
 | 层 | 当前 | 需要的证据 |
 | :--- | :--- | :--- |
 | discovery（发现） | ✅ 本地 candidate 记录 | `docs/candidate-entry.json` |
-| installability（可安装） | ⏳ unknown | 一次性 Profile `dsh plugin add` 成功 + dump-config |
-| runtime（运行时） | ⏳ unknown | 技能出现在列表并可被调用 |
+| installability（可安装） | ✅ 已证明：一次性 Profile `dsh plugin add link:` 成功，`--dump-config` 组装出条目 | 已完成 |
+| runtime（运行时） | ◐ 模块级加载通过（技能注册与读取）；完整会话与 UI 未验证 | `dsh headless` 或真实 Profile 冒烟 |
 | securityReview（安全复核） | ⏳ unknown | 提交后平台扫描报告（automated-scan） |
 
 ## 上架步骤

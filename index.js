@@ -21,21 +21,36 @@ export const name = PROVIDER_NAME
 export const inject = ['skills']
 
 export function apply(ctx) {
-  ctx.skills.registerProvider(() => ({
+  const skills = ctx?.skills
+  const registerProvider = skills?.registerProvider
+
+  if (typeof registerProvider !== 'function') {
+    // Older or differently-shaped hosts: stay inert instead of breaking boot.
+    const message =
+      'dsh-eda-review: ctx.skills.registerProvider() is unavailable in this DSH runtime; ' +
+      'the eda-project-review skill will not load. A DSH release exposing the skills provider seam is required.'
+    const logger = ctx?.logger
+    if (logger !== undefined && logger !== null && typeof logger.warn === 'function') {
+      logger.warn(message)
+    }
+    return
+  }
+
+  registerProvider.call(skills, () => ({
     name: PROVIDER_NAME,
     async list(options) {
       options?.signal?.throwIfAborted()
-      const skills = await loadSkillsFrom(SKILLS_ROOT, options?.signal)
+      const skillsList = await loadSkillsFrom(SKILLS_ROOT, options?.signal)
       options?.signal?.throwIfAborted()
-      return skills.map(toCandidate)
+      return skillsList.map(toCandidate)
     },
     async get(candidate, options) {
       options?.signal?.throwIfAborted()
       if (candidate === null || typeof candidate !== 'object' || typeof candidate.name !== 'string') {
         return undefined
       }
-      const skills = await loadSkillsFrom(SKILLS_ROOT, options?.signal)
-      const skill = skills.find((entry) => entry.name === candidate.name)
+      const skillsList = await loadSkillsFrom(SKILLS_ROOT, options?.signal)
+      const skill = skillsList.find((entry) => entry.name === candidate.name)
       return skill === undefined ? undefined : toDefinition(skill)
     },
   }))

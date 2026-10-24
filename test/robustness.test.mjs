@@ -144,6 +144,19 @@ test('provider: candidate shape exposes rank, source and resource base', async (
   assert.ok(entry.path.endsWith('SKILL.md'))
 })
 
+test('compat: apply stays inert when the host lacks the skills provider seam', () => {
+  for (const ctx of [{}, { skills: {} }, { skills: { registerProvider: 42 } }, { skills: null }]) {
+    assert.doesNotThrow(() => apply(ctx))
+  }
+})
+
+test('compat: apply warns through ctx.logger when the seam is missing', () => {
+  const warnings = []
+  apply({ skills: {}, logger: { warn: (message) => warnings.push(message) } })
+  assert.equal(warnings.length, 1)
+  assert.match(warnings[0], /registerProvider/)
+})
+
 test('provider: separate registrations do not share state', () => {
   const first = { skills: { registerProvider(factory) { first.provider = factory() } } }
   const second = { skills: { registerProvider(factory) { second.provider = factory() } } }
