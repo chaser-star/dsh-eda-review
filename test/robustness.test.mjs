@@ -4,6 +4,7 @@ import assert from 'node:assert/strict'
 import { mkdir, mkdtemp, readFile, rm, symlink, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { apply, loadSkillsFrom } from '../index.js'
 import { parseSkillMarkdownWithBuiltin } from '../lib/frontmatter.mjs'
 
@@ -53,6 +54,31 @@ test('loader: a directory without SKILL.md does not break listing', async () => 
     const skills = await loadSkillsFrom(root)
     assert.deepEqual(skills.map((skill) => skill.name), ['good-skill'])
   })
+})
+
+test('loader: fixture with two valid skills and one directory without SKILL.md', async () => {
+  await withTempRoot(async (root) => {
+    await writeSkill(root, 'alpha-skill', SKILL_FRONTMATTER('alpha-skill'))
+    await writeSkill(root, 'beta-skill', SKILL_FRONTMATTER('beta-skill'))
+    await mkdir(join(root, 'junk-dir'), { recursive: true })
+
+    const skills = await loadSkillsFrom(root)
+    assert.deepEqual(
+      skills.map((skill) => skill.name),
+      ['alpha-skill', 'beta-skill'],
+    )
+  })
+})
+
+test('bundled skills: every packaged skill parses and validates', async () => {
+  const root = fileURLToPath(new URL('../skills/', import.meta.url))
+  const skills = await loadSkillsFrom(root)
+  assert.ok(skills.length >= 1, 'expected at least one bundled skill')
+  for (const skill of skills) {
+    assert.match(skill.name, /^[a-z0-9]+(?:-[a-z0-9]+)*$/)
+    assert.ok(skill.description.length > 0, `${skill.name}: empty description`)
+    assert.ok(skill.content.length > 0, `${skill.name}: empty content`)
+  }
 })
 
 test('loader: empty root yields an empty list', async () => {

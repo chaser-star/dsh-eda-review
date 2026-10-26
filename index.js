@@ -88,6 +88,9 @@ export async function loadSkillsFrom(root, signal) {
     try {
       parsed = parseSkillMarkdown(raw, skillFile)
     } catch (error) {
+      // Intentional fail-fast: a malformed bundled SKILL.md is a packaging
+      // defect, not untrusted user data. Raising at load time with the file
+      // path beats silently shipping a broken skill. See robustness tests.
       const message = error instanceof Error ? error.message : String(error)
       throw new Error(`${PROVIDER_NAME}: ${skillFile}: ${message}`)
     }

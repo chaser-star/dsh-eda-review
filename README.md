@@ -84,7 +84,7 @@ dsh-eda-review-plugin/
 ├─ lib/frontmatter.mjs   # frontmatter 解析（yaml 优先，内置兜底）
 ├─ cordis.patch.yml      # bundle 补丁：insert 唯一 entry
 ├─ skills/eda-project-review/SKILL.md
-├─ test/                 # run-all + 5 套测试（共 77 项）
+├─ test/                 # run-all + 5 套测试（共 81 项）
 ├─ docs/                 # TESTING / MARKETPLACE / candidate-entry
 ├─ README.md  SECURITY.md  LICENSE
 ```
@@ -92,11 +92,11 @@ dsh-eda-review-plugin/
 ## 开发与测试
 
 ```powershell
-npm test                                              # 单进程全量 79 项
+npm test                                              # 单进程全量 81 项
 node --experimental-test-coverage test/run-all.mjs    # 覆盖率
 ```
 
-测试体系（三轮，见 [docs/TESTING.md](docs/TESTING.md)）：契约 11 + 安全 9 + 黄金用例 39 + 差分精度 300 例（误差 **0.00%** < 5%）+ 健壮性 17；行覆盖率 96.11%、分支 89.91%。
+测试体系（三轮，见 [docs/TESTING.md](docs/TESTING.md)）：契约 11 + 安全 9 + 黄金用例 39 + 差分精度 300 例（误差 **0.00%** < 5%）+ 健壮性 19；行覆盖率 96.21%、分支 90.03%。
 
 ## 兼容性
 
